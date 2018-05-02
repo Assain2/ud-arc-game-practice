@@ -10,6 +10,8 @@ var Enemy = function() {
     this.x = -120;
     this.y = yPositions[Math.floor(Math.random() * yPositions.length)];
     this.speed = 0;
+    this.w = 75;
+    this.h = 60;
 
     this.addSpeed = function() {
       this.speed += Math.floor(Math.random() * 450) + 30;
@@ -23,17 +25,11 @@ var Enemy = function() {
       this.addSpeed();
     };
 
-    this.boomTest = function() {
-      let bugMinX = (this.x + 3).toFixed(2);
-      let bugMaxX = (this.x - 3).toFixed(2);
-      let bugY = this.y;
-      let plPosX = (player.x).toFixed(2);
-      let plPosY = player.y;
-
-      if ((plPosX <= bugMaxX && plPosX >= bugMinX) && plPosY === bugY) {
+    this.collisionTest = function () {
+      if(this.x+this.w >= player.x && this.x <= player.x+player.w && this.y >= player.y && this.y <= player.y+player.h) {
+        console.log('collision');
         player.x = 200;
         player.y = 400;
-        console.log(this.x, player.x);
       }
     };
 
@@ -49,7 +45,7 @@ Enemy.prototype.update = function(dt) {
     if (this.x > 550) {
       this.reposition();
     }
-    this.boomTest();
+    this.collisionTest();
 
 
 };
@@ -66,6 +62,8 @@ var Player = function(x, y) {
   this.sprite = 'images/char-boy.png';
   this.x = x;
   this.y = y;
+  this.h = 50;
+  this.w = 50;
 };
 
 
