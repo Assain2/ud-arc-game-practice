@@ -1,14 +1,16 @@
 // Enemies our player must avoid
-var Enemy = function(x, y) {
+var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-    this.x = x;
-    this.y = y;
+    const yPositions = [232, 148, 64];
+    this.x = -120;
+    this.y = yPositions[Math.floor(Math.random() * yPositions.length)];
     this.speed = 0;
+
     this.addSpeed = function() {
       this.speed += Math.floor(Math.random() * 450) + 30;
     };
@@ -16,6 +18,7 @@ var Enemy = function(x, y) {
 
     this.reposition = function() {
       this.x = -120;
+      this.y = yPositions[Math.floor(Math.random() * yPositions.length)];
       this.speed = 0;
       this.addSpeed();
     };
@@ -27,13 +30,13 @@ var Enemy = function(x, y) {
       let plPosX = (player.x).toFixed(2);
       let plPosY = player.y;
 
-
       if ((plPosX <= bugMaxX && plPosX >= bugMinX) && plPosY === bugY) {
         player.x = 200;
         player.y = 400;
         console.log(this.x, player.x);
       }
     };
+
 };
 
 // Update the enemy's position, required method for game
@@ -82,13 +85,9 @@ Player.prototype.handleInput = function(key) {
   }
 };
 
-let firstBug = new Enemy(-120, 232);
-let secondBug = new Enemy(-120, 148);
-let thirdBug = new Enemy(-120, 64);
-
 
 var player = new Player(200, 400);
-var allEnemies = [firstBug, secondBug, thirdBug];
+var allEnemies = [new Enemy(), new Enemy(), new Enemy(), new Enemy()];
 var player = player;
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
