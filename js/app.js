@@ -10,7 +10,7 @@ var Enemy = function(x, y) {
     this.y = y;
     this.speed = 0;
     this.addSpeed = function() {
-      this.speed += Math.floor(Math.random() * 350) + 60;
+      this.speed += Math.floor(Math.random() * 450) + 30;
     };
     this.addSpeed();
 
@@ -18,8 +18,22 @@ var Enemy = function(x, y) {
       this.x = -120;
       this.speed = 0;
       this.addSpeed();
-    }
+    };
 
+    this.boomTest = function() {
+      let bugMinX = (this.x + 3).toFixed(2);
+      let bugMaxX = (this.x - 3).toFixed(2);
+      let bugY = this.y;
+      let plPosX = (player.x).toFixed(2);
+      let plPosY = player.y;
+
+
+      if ((plPosX <= bugMaxX && plPosX >= bugMinX) && plPosY === bugY) {
+        player.x = 200;
+        player.y = 400;
+        console.log(this.x, player.x);
+      }
+    };
 };
 
 // Update the enemy's position, required method for game
@@ -32,6 +46,9 @@ Enemy.prototype.update = function(dt) {
     if (this.x > 550) {
       this.reposition();
     }
+    this.boomTest();
+
+
 };
 
 // Draw the enemy on the screen, required method for game
@@ -65,9 +82,9 @@ Player.prototype.handleInput = function(key) {
   }
 };
 
-let firstBug = new Enemy(-120, 140);
-let secondBug = new Enemy(-120, 220);
-let thirdBug = new Enemy(-120, 60);
+let firstBug = new Enemy(-120, 232);
+let secondBug = new Enemy(-120, 148);
+let thirdBug = new Enemy(-120, 64);
 
 
 var player = new Player(200, 400);
