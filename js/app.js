@@ -27,7 +27,6 @@ var Enemy = function() {
 
     this.collisionTest = function () {
       if(this.x+this.w >= player.x && this.x <= player.x+player.w && this.y >= player.y && this.y <= player.y+player.h) {
-        console.log('collision');
         player.x = 200;
         player.y = 400;
       }
