@@ -29,8 +29,7 @@ var Enemy = function() {
     this.collisionTest = function () {
       if(this.x+this.w >= player.x && this.x <= player.x+player.w && this.y >= player.y && this.y <= player.y+player.h) {
         alert('try again!');
-        player.x = 200;
-        player.y = 400;
+        player.movePlayer();
       }
     };
 
@@ -48,11 +47,6 @@ Enemy.prototype.update = function(dt) {
 
     this.collisionTest();
 
-    if (player.y === (-20)) {
-      player.x = 200;
-      player.y = 400;
-    }
-
 };
 
 
@@ -68,6 +62,21 @@ var Player = function(x, y) {
   this.y = y;
   this.h = 50;
   this.w = 50;
+
+// Function that repositions player
+  this.movePlayer = function() {
+    player.x = 200;
+    player.y = 400;
+  }
+
+// Function that chcecks if player met the win condition
+  this.checkGoal = function() {
+    if (player.y === (-20)) {
+      this.movePlayer();
+      alert('you did it!');
+    }
+  }
+
 };
 
 // Draw player instance on the screen
@@ -91,10 +100,11 @@ Player.prototype.handleInput = function(key) {
 // Instantiating Player and Enemy objects
 var player = new Player(200, 400);
 var allEnemies = [new Enemy(), new Enemy(), new Enemy(), new Enemy()];
-var player = player;
 
-// updating player's position
-player.update = function(dt) {
+// Updating player's position
+Player.prototype.update = function(dt) {
+  this.checkGoal();
+
 };
 
 
